@@ -1,0 +1,25 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "Two strings are anagrams of each other if the letters of one string can be rearranged to form the other string. Given a string, find the number of pairs of substrings of the string that are anagrams of each other.\r\n\r\n#### Example\r\nThe list of all anagrammatic pairs is  at positions  respectively.\r\n\r\n#### Function Description\r\nComplete the function sherlockAndAnagrams in the editor below.\r\nsherlockAndAnagrams has the following parameter(s):\r\n\r\nstring s: a string\r\nReturns\r\n\r\nint: the number of unordered anagrammatic pairs of substrings in \r\nInput Format\r\n\r\nThe first line contains an integer , the number of queries.\r\nEach of the next  lines contains a string  to analyze.\r\n\r\n#### Constraints\r\ncontains only lowercase letters in the range ascii[a-z].\r\n\r\n#### Sample Input 0\r\n```\r\n    2\r\n    abba\r\n    abcd\r\n```\r\n#### Sample Output 0\r\n```\r\n    4\r\n    0\r\n```\r\n#### Explanation 0\r\nThe list of all anagrammatic pairs is  and  at positions  and  respectively.\r\nNo anagrammatic pairs exist in the second query as no character repeats.\r\n\r\n#### Sample Input 1\r\n```\r\n    2\r\n    ifailuhkqq\r\n    kkkk\r\n```\r\n#### Sample Output 1\r\n```\r\n    3\r\n    10\r\n```\r\n#### Explanation 1\r\n\r\nFor the first query, we have anagram pairs  and  at positions  and  respectively.\r\n\r\nFor the second query:\r\nThere are 6 anagrams of the form  at positions  and .\r\nThere are 3 anagrams of the form  at positions  and .\r\nThere is 1 anagram of the form  at position .\r\n\r\nSample Input 2\r\n\r\n1\r\ncdcd\r\nSample Output 2\r\n\r\n5\r\nExplanation 2\r\n\r\nThere are two anagrammatic pairs of length :  and .\r\nThere are three anagrammatic pairs of length :  at positions  respectively."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// Solution 1\r\nfunction find(s) {\r\n    let result = []\r\n    let count = 0\r\n    for (let i = 0; i < s.length; i++) {\r\n        for (let j = i + 1; j < s.length + 1; j++) {\r\n            result.push(s.slice(i, j).split(\"\").sort().join(\"\"));\r\n        }\r\n    }\r\n    console.log(result);\r\n    for (let i = 0; i < result.length - 1; i++) {\r\n        for (let j = i + 1; j < result.length; j++) {\r\n            if (result[i] == result[j]) count++\r\n        }\r\n    }\r\n    return count;\r\n}\r\n\r\nfind(\"ifailuhkqq\"); // Should be 3"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// Solution 2\r\nfunction find2(s) {\r\n    // Find all possible strings\r\n    const allStrings = [];\r\n    for (let i = 0; i < s.length; i++) {\r\n        for (let j = i + 1; j < s.length + 1; j++) {\r\n            allStrings.push(s.slice(i, j));\r\n        }\r\n    }\r\n\r\n    const dict = {};\r\n    let count = 0;\r\n    for (let str of allStrings) {\r\n        const sortedStr = str.split('').sort().join('');\r\n        count += dict[sortedStr] ?? 0;\r\n        dict[sortedStr] = (dict[sortedStr] || 0) + 1;\r\n    }\r\n    return count;\r\n}\r\n\r\nfind2(\"ifailuhkqq\"); // Should be 3"
+            ],
+            "outputs": []
+        }
+    ]
+}
