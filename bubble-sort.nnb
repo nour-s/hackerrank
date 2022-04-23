@@ -42,7 +42,7 @@
             "outputs": []
         },
         {
-            "language": "markdown",
+            "language": "typescript",
             "source": [
                 "function maximumToys(prices, k) {\r\n    let count = 0, sum = 0;\r\n    prices.sort((a, b) => a - b)\r\n    for (let i = 0; i < prices.length; i++)\r\n    {\r\n        if (sum <= k) {\r\n            sum = sum + prices[i];\r\n            count++;\r\n        }\r\n    }\r\n    return count - 1;\r\n}"
             ],
