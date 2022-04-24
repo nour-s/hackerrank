@@ -1,0 +1,50 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "HackerLand National Bank has a simple policy for warning clients about possible fraudulent account activity. If the amount spent by a client on a particular day is greater than or equal to  the client's median spending for a trailing number of days, they send the client a notification about potential fraud. The bank doesn't send the client any notifications until they have at least that trailing number of prior days' transaction data.\r\n\r\nGiven the number of trailing days  and a client's total daily expenditures for a period of  days, determine the number of times the client will receive a notification over all  days.\r\n\r\nExample\r\n\r\n\r\nOn the first three days, they just collect spending data. At day , trailing expenditures are . The median is  and the day's expenditure is . Because , there will be a notice. The next day, trailing expenditures are  and the expenditures are . This is less than  so no notice will be sent. Over the period, there was one notice sent.\r\n\r\nNote: The median of a list of numbers can be found by first sorting the numbers ascending. If there is an odd number of values, the middle one is picked. If there is an even number of values, the median is then defined to be the average of the two middle values. (Wikipedia)\r\n\r\nFunction Description\r\n\r\nComplete the function activityNotifications in the editor below.\r\n\r\nactivityNotifications has the following parameter(s):\r\n\r\nint expenditure[n]: daily expenditures\r\nint d: the lookback days for median spending\r\nReturns\r\n\r\nint: the number of notices sent\r\nInput Format\r\n\r\nThe first line contains two space-separated integers  and , the number of days of transaction data, and the number of trailing days' data used to calculate median spending respectively.\r\nThe second line contains  space-separated non-negative integers where each integer  denotes .\r\n\r\nConstraints\r\n\r\nOutput Format\r\n\r\nSample Input 0\r\n\r\nSTDIN               Function\r\n-----               --------\r\n9 5                 expenditure[] size n =9, d = 5\r\n2 3 4 2 3 6 8 4 5   expenditure = [2, 3, 4, 2, 3, 6, 8, 4, 5]\r\nSample Output 0\r\n\r\n2\r\nExplanation 0\r\n\r\nDetermine the total number of  the client receives over a period of  days. For the first five days, the customer receives no notifications because the bank has insufficient transaction data: .\r\n\r\nOn the sixth day, the bank has  days of prior transaction data, , and  dollars. The client spends  dollars, which triggers a notification because : .\r\n\r\nOn the seventh day, the bank has  days of prior transaction data, , and  dollars. The client spends  dollars, which triggers a notification because : .\r\n\r\nOn the eighth day, the bank has  days of prior transaction data, , and  dollars. The client spends  dollars, which does not trigger a notification because : .\r\n\r\nOn the ninth day, the bank has  days of prior transaction data, , and a transaction median of  dollars. The client spends  dollars, which does not trigger a notification because : .\r\n\r\nSample Input 1\r\n\r\n5 4\r\n1 2 3 4 4\r\nSample Output 1\r\n\r\n0\r\nThere are  days of data required so the first day a notice might go out is day . Our trailing expenditures are  with a median of  The client spends  which is less than  so no notification is sent."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "function activityNotifications(expenditure, days) {\r\n    let countingSort = new Array(201).fill(0);\r\n    const medianPos = days % 2 === 0 ? (days / 2) : Math.floor(days / 2) + 1;\r\n    let notifications = 0;\r\n    const len = expenditure.length;\r\n\r\n    for (let i = 0; i < days; i++) {\r\n        countingSort[expenditure[i]]++;\r\n    }\r\n\r\n    for (let end = days, current = 0; end < len; end++, current++) {\r\n        const median = getMedian(countingSort, days, medianPos);\r\n        if (expenditure[end] >= 2 * median) {\r\n            notifications++;\r\n        }\r\n\r\n        countingSort[expenditure[current]]--;\r\n        countingSort[expenditure[end]]++;\r\n    }\r\n\r\n    return notifications;\r\n}\r\n\r\nfunction getMedian(countingSort, d, medianPos) {\r\n    let left = -1, counter = 0;\r\n    // Remember, the index of the counterList is the actual value in the expenditure array\r\n    // So left and right are the actual values\r\n\r\n    // Increase the counter by the number of times the value is in the countingSort array\r\n    // Until we reach the median position or cross it.\r\n    for (let left = -1; left < medianPos; left++) {\r\n        counter += countingSort[left];\r\n    }\r\n    // while (couner < medianPos) {\r\n        // counter += countingSort[left];\r\n        // left++;\r\n    // }\r\n\r\n    let right = left;\r\n    // left--;\r\n\r\n    // If the counter crossed the median position, that means the number 'left' is repeated more than once\r\n    // Simply because the previous number didn't reach the median,and the current one crossed it.\r\n    // Alternatively, if the counter is equal to the median position, that means the number 'left' is the median\r\n    if (counter > medianPos || d % 2 !== 0) {\r\n        return left;\r\n    }\r\n    else {\r\n        while (countingSort[right] === 0) {\r\n            right++;\r\n        }\r\n        return (left + right) / 2;\r\n    }\r\n}\r\n\r\n// [2 3 4 2 3 6 8 4 5] 5 days => output 2\r\n// [1 2 3 4 4] 4 days => output 0\r\n// [10 20 30 40 50] 3 days => output 1\r\nconst r = activityNotifications([0, 1, 5, 6, 7, 8, 9, 20], 4);\r\nconsole.log(r);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stderr",
+                            "value": [
+                                "4",
+                                "",
+                                "Debugger ending on ws://127.0.0.1:18369/68a3b843-08a7-4a4d-beba-403244cd0c98\r",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stderr",
+                            "value": [
+                                "Debugger attached.\r",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Solution notes:\r\n\r\nWe could simply sort the array every time we move to a new day but that will be O(n log n) which is too slow.\r\n\r\nThe efficient solution utilizes the counting sort method but instead of sorting the actual array, we keep the counting array to move from a number to another.\r\nFor instance, if the array is [1, 1, 2, 2, 3, 4, 4], the count array would be [0, 2, 2, 1, 2] (provided that 0 <= arr[i] <= 4)\r\n\r\nBy traversing the counting array, we are actually moving from a number to the next one regardless how many times it appears.\r\n\r\nSo for [1, 1, 2, 2, 3, 4, 4] array, if we want to jump from value 1 to 2 we simply traverse the counting array by moving one index from 1 to 2.\r\n\r\nWhat we want is to find the median which is usually at the middle of the sub array that ends before the current day.\r\nIf the array is odd, it is the one exactly in the middle, if it is even, it is the average of the two middle numbers.\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        }
+    ]
+}
