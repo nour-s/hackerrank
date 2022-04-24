@@ -1,0 +1,25 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "In an array, , the elements at indices  and  (where ) form an inversion if . In other words, inverted elements  and  are considered to be \"out of order\". To correct an inversion, we can swap adjacent elements.\r\n\r\nExample\r\n\r\n\r\nTo sort the array, we must perform the following two swaps to correct the inversions:\r\n\r\nThe sort has two inversions:  and .\r\nGiven an array , return the number of inversions to sort the array.\r\n\r\nFunction Description\r\n\r\nComplete the function countInversions in the editor below.\r\n\r\ncountInversions has the following parameter(s):\r\n\r\nint arr[n]: an array of integers to sort\r\nReturns\r\n\r\nint: the number of inversions\r\nInput Format\r\n\r\nThe first line contains an integer, , the number of datasets.\r\n\r\nEach of the next  pairs of lines is as follows:\r\n\r\nThe first line contains an integer, , the number of elements in .\r\nThe second line contains  space-separated integers, .\r\nConstraints\r\n\r\nSample Input\r\n\r\nSTDIN       Function\r\n-----       --------\r\n2           d = 2\r\n5           arr[] size n = 5 for the first dataset\r\n1 1 1 2 2   arr = [1, 1, 1, 2, 2]\r\n5           arr[] size n = 5 for the second dataset     \r\n2 1 3 1 2   arr = [2, 1, 3, 1, 2]\r\nSample Output\r\n\r\n0  \r\n4   \r\nExplanation\r\n\r\nWe sort the following  datasets:\r\n\r\n is already sorted, so there are no inversions for us to correct.\r\nWe performed a total of  swaps to correct inversions."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\nfunction countInversions(arr) {\r\n    let count = 0;\r\n    const mergeSort = (array) => {\r\n        if (array.length === 1) {\r\n            return array;\r\n        }\r\n        const length = array.length;\r\n        const middle = Math.floor(length / 2);\r\n        const left = array.slice(0, middle);\r\n        const right = array.slice(middle);\r\n\r\n        return merge(mergeSort(left), mergeSort(right));\r\n\r\n        function merge(left, right) {\r\n            let result = [];\r\n            let i = 0;\r\n            let j = 0;\r\n\r\n            while (i < left.length && j < right.length) {\r\n                if (left[i] < right[j]) {\r\n                    result.push(left[i]);\r\n                    i++;\r\n                } else if (left[i] > right[j]) {\r\n                    result.push(right[j]);\r\n                    count = count + (left.length - i)\r\n                    j++;\r\n                } else {\r\n                    result.push(left[i]);\r\n                    i++;\r\n                }\r\n            }\r\n\r\n            // Concat the remaining elements from one of the array\r\n            return result.concat(left.slice(i).concat(right.slice(j)));\r\n        }\r\n    };\r\n\r\n    mergeSort(arr);\r\n    return count;\r\n\r\n}\r\n\r\n// const count = countInversions([9, 5, 7, 1]);\r\n// const count = countInversions([1, 1, 1, 2, 2]);\r\n// const count = countInversions([2, 1, 3, 1, 2]);\r\nconst count = countInversions([7, 5, 3, 1]);\r\nconsole.log(count);\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The solution here is simply a merge sort algorithm, but instead of returning the sorted array, we return the number of swap.\r\n\r\nI still couldn't figure out why the count is increased by the length of the left array - the index:\r\n\r\n              } else if (left[i] > right[j]) {\r\n                    result.push(right[j]);\r\n                    count = count + (left.length - i)\r\n                    j++;\r\n              }"
+            ],
+            "outputs": []
+        }
+    ]
+}
