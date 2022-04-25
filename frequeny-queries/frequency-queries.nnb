@@ -1,0 +1,24 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "const queries = [[1, 5], [1, 6], [3, 2], [1, 10], [1, 10], [1, 6], [2, 5], [3, 2]];\r\n\r\n// Complete the freqQuery function below.\r\nfunction freqQuery(queries) {\r\n    const arr = [];\r\n    for(let [query, value] of queries)\r\n    {\r\n        switch(query)\r\n        {\r\n            case 1:\r\n                arr.push(value);\r\n                break;\r\n            case 2:\r\n                arr.splice(arr.indexOf(value), 1);\r\n                break;\r\n            case 3:\r\n                if(arr.filter(x => x === value).length > 0)\r\n                    console.log(1);\r\n                else\r\n                    console.log(0);\r\n                break;\r\n        }\r\n    }\r\n}\r\n\r\nconsole.log(freqQuery(queries));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[ 5 ]",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
