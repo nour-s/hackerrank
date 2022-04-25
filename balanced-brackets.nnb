@@ -1,0 +1,18 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "A bracket is considered to be any one of the following characters: (, ), {, }, [, or ].\r\n\r\nTwo brackets are considered to be a matched pair if the an opening bracket (i.e., (, [, or {) occurs to the left of a closing bracket (i.e., ), ], or }) of the exact same type. There are three types of matched pairs of brackets: [], {}, and ().\r\n\r\nA matching pair of brackets is not balanced if the set of brackets it encloses are not matched. For example, {[(])} is not balanced because the contents in between { and } are not balanced. The pair of square brackets encloses a single, unbalanced opening bracket, (, and the pair of parentheses encloses a single, unbalanced closing square bracket, ].\r\n\r\nBy this logic, we say a sequence of brackets is balanced if the following conditions are met:\r\n\r\nIt contains no unmatched brackets.\r\nThe subset of brackets enclosed within the confines of a matched pair of brackets is also a matched pair of brackets.\r\nGiven  strings of brackets, determine whether each sequence of brackets is balanced. If a string is balanced, return YES. Otherwise, return NO.\r\n\r\nFunction Description\r\n\r\nComplete the function isBalanced in the editor below.\r\n\r\nisBalanced has the following parameter(s):\r\n\r\nstring s: a string of brackets\r\nReturns\r\n\r\nstring: either YES or NO\r\nInput Format\r\n\r\nThe first line contains a single integer , the number of strings.\r\nEach of the next  lines contains a single string , a sequence of brackets.\r\n\r\nConstraints\r\n\r\n, where  is the length of the sequence.\r\nAll chracters in the sequences ∈ { {, }, (, ), [, ] }.\r\nOutput Format\r\n\r\nFor each string, return YES or NO.\r\n\r\nSample Input\r\n\r\nSTDIN           Function\r\n-----           --------\r\n3               n = 3\r\n{[()]}          first s = '{[()]}'\r\n{[(])}          second s = '{[(])}'\r\n{{[[(())]]}}    third s ='{{[[(())]]}}'\r\nSample Output\r\n\r\nYES\r\nNO\r\nYES\r\nExplanation\r\n\r\nThe string {[()]} meets both criteria for being a balanced string.\r\nThe string {[(])} is not balanced because the brackets enclosed by the matched pair { and } are not balanced: [(]).\r\nThe string {{[[(())]]}} meets both criteria for being a balanced string."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "function isBalanced(s) {\r\n    // Write your code here\r\n    const left = ['(', '{', '['];\r\n    const bracketMap = { '{': '}', '(': ')', '[': ']' };\r\n\r\n    let stack = [];\r\n\r\n    for (let i = 0; i < s.length; i++) {\r\n        if (left.includes(s[i])) {\r\n            stack.push(s[i]);\r\n        }\r\n        else {\r\n            if (stack.length === 0) {\r\n                return false;\r\n            }\r\n            const last = stack.pop();\r\n            if (bracketMap[last] != s[i]) {\r\n                return false;\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n    return !stack.length;\r\n}\r\n\r\n\r\n// console.log(isBalanced(\"[()]{}{[()()]()}\")); // true\r\nconsole.log(isBalanced(\"[(\")); // false\r\n"
+            ],
+            "outputs": []
+        }
+    ]
+}
