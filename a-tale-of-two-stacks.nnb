@@ -1,0 +1,30 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "https://www.hackerrank.com/challenges/ctci-queue-using-two-stacks/problem\r\n\r\nA queue is an abstract data type that maintains the order in which elements were added to it, allowing the oldest elements to be removed from the front and new elements to be added to the rear. This is called a First-In-First-Out (FIFO) data structure because the first element added to the queue (i.e., the one that has been waiting the longest) is always the first one to be removed.\r\n\r\nA basic queue has the following operations:\r\n\r\nEnqueue: add a new element to the end of the queue.\r\nDequeue: remove the element from the front of the queue and return it.\r\nIn this challenge, you must first implement a queue using two stacks. Then process  queries, where each query is one of the following  types:\r\n\r\n1 x: Enqueue element  into the end of the queue.\r\n2: Dequeue the element at the front of the queue.\r\n3: Print the element at the front of the queue.\r\nFor example, a series of queries might be as follows:\r\n\r\nimage\r\n\r\nFunction Description\r\n\r\nComplete the put, pop, and peek methods in the editor below. They must perform the actions as described above.\r\n\r\nInput Format\r\n\r\nThe first line contains a single integer, , the number of queries.\r\n\r\nEach of the next  lines contains a single query in the form described in the problem statement above. All queries start with an integer denoting the query , but only query  is followed by an additional space-separated value, , denoting the value to be enqueued.\r\n\r\nConstraints\r\n\r\nIt is guaranteed that a valid answer always exists for each query of types  and .\r\nOutput Format\r\n\r\nFor each query of type , return the value of the element at the front of the fifo queue on a new line.\r\n\r\nSample Input\r\n\r\n10\r\n1 42\r\n2\r\n1 14\r\n3\r\n1 28\r\n3\r\n1 60\r\n1 78\r\n2\r\n2\r\nSample Output\r\n\r\n14\r\n14\r\nExplanation\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "class Stack {\r\n    stack = [];\r\n    push = (item) => this.stack.push(item);\r\n    pop = () => this.stack.pop();\r\n    peek = () => this.stack[this.stack.length - 1];\r\n    get length() { return this.stack.length; }\r\n}\r\n\r\nfunction processData(queries) {\r\n    //Enter your code here\r\n    const stackPopPeek = new Stack();\r\n    const stackPush = new Stack();\r\n    const result = [];\r\n\r\n    for (let [query, value] of queries) {\r\n        switch (query) {\r\n            case 1:\r\n                stackPush.push(value);\r\n                break;\r\n            case 2:\r\n                if (stackPopPeek.length == 0)\r\n                    while (stackPush.length > 0) { stackPopPeek.push(stackPush.pop()); }\r\n                stackPopPeek.pop();\r\n                break;\r\n            case 3:\r\n                if (stackPopPeek.length == 0)\r\n                    while (stackPush.length > 0) { stackPopPeek.push(stackPush.pop()); }\r\n                const item = stackPopPeek.peek();\r\n                result.push(item);\r\n                break;\r\n        }\r\n    }\r\n\r\n    return result;\r\n}\r\n\r\nconsole.log(processData([[1, 42],[2,],[1, 14],[3,],[1, 28],[3,],[1, 60],[1, 78],[2,],[2,]])); // Returns [14, 14]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
