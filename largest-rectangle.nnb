@@ -1,0 +1,42 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "Skyline Real Estate Developers is planning to demolish a number of old, unoccupied buildings and construct a shopping mall in their place. Your task is to find the largest solid area in which the mall can be constructed.\r\n\r\nThere are a number of buildings in a certain two-dimensional landscape. Each building has a height, given by . If you join  adjacent buildings, they will form a solid rectangle of area .\r\n\r\nExample\r\n\r\nA rectangle of height  and length  can be constructed within the boundaries. The area formed is .\r\n\r\nFunction Description\r\n\r\nComplete the function largestRectangle int the editor below. It should return an integer representing the largest rectangle that can be formed within the bounds of consecutive buildings.\r\n\r\nlargestRectangle has the following parameter(s):\r\n\r\nint h[n]: the building heights\r\nReturns\r\n- long: the area of the largest rectangle that can be formed within the bounds of consecutive buildings\r\n\r\nInput Format\r\n\r\nThe first line contains , the number of buildings.\r\nThe second line contains  space-separated integers, each the height of a building.\r\n\r\nConstraints\r\n\r\nSample Input\r\n\r\nSTDIN       Function\r\n-----       --------\r\n5           h[] size n = 5\r\n1 2 3 4 5   h = [1, 2, 3, 4, 5]\r\nSample Output\r\n\r\n9\r\nExplanation\r\n\r\nAn illustration of the test case follows."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "\r\nArray.prototype.peek = function () { return this[this.length - 1]; }\r\nArray.prototype.isEmpty = function () { return this.length == 0; }\r\n\r\n\r\nfunction largestRectangle(heights) {\r\n    var currentHeight, i;\r\n    var [hStack, posStack] = [[], []];\r\n    var maxSize = -Infinity;\r\n\r\n    for (i = 0; i <= heights.length; i++) {\r\n        currentHeight = heights[i] || 0;\r\n        if (hStack.length === 0 || currentHeight > hStack.peek()) {\r\n            hStack.push(currentHeight);\r\n            posStack.push(i);\r\n        } else if (hStack.peek() > currentHeight) {\r\n            let tempPos;\r\n            while (hStack.length && hStack.peek() > currentHeight) {\r\n                const tempH = hStack.pop();\r\n                tempPos = posStack.pop();\r\n                const tempSize = tempH * (i - tempPos);\r\n                maxSize = Math.max(tempSize, maxSize);\r\n            }\r\n            hStack.push(currentHeight);\r\n            posStack.push(tempPos);\r\n        }\r\n    }\r\n    return maxSize;\r\n}\r\n\r\n// let area = largestRectangle([8979, 4570, 6436, 5083, 7780, 3269, 5400, 7579, 2324, 2116]); // 26152\r\nlet area = largestRectangle([1, 2, 3, 4, 5]); // 9\r\nconsole.log(area); \r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "TypeError",
+                                "message": "hStack.peek is not a function",
+                                "stack": "    at largestRectangle (<Cell 2> [13, 12])\n    at <Cell 2> [32, 0]\n    at <Cell 2> [31, 46]"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
