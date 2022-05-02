@@ -1,0 +1,139 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Traditional TreeNode class"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "class TreeNode {\r\n  public constructor(val: number = null) {\r\n    this.val = val;\r\n  }\r\n  public val: number;\r\n  public left: TreeNode;\r\n  public right: TreeNode;\r\n\r\n  insert(newData: any) {\r\n    let node = this;\r\n    if (!node.val) {\r\n      node.val = newData;\r\n    } else if (node.left && newData < node.val) {\r\n      node.left.insert(newData);\r\n    } else if (newData < node.val && !node.left) {\r\n      const newNode = new TreeNode(newData);\r\n      node.left = newNode;\r\n    } else if (node.right && newData > node.val) {\r\n      node.right.insert(newData);\r\n    } else if (newData > node.val && !node.right) {\r\n      const newNode = new TreeNode(newData);\r\n      node.right = newNode;\r\n    }\r\n  }\r\n}\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# An example of a binary tree"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const nodeValues = [3, 5, 2, 1, 4, 6, 7];\r\n//       3\r\n//    2      5\r\n//  1      4   6\r\n//               7\r\n\r\nconst tree = new TreeNode();\r\nfor (let nodeValue of nodeValues) {\r\n  tree.insert(nodeValue);\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# Travesing an array using Inorder Traversal (Iterative)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "function traverse(root) {\r\n  const res = [];\r\n  let stack = [];\r\n  let curr = root;\r\n  while (curr != null || stack.length > 0) {\r\n    while (curr != null) {\r\n      stack.push(curr);\r\n      curr = curr.left;\r\n    }\r\n    curr = stack.pop();\r\n    res.push(curr.val);\r\n    curr = curr.right;\r\n  }\r\n  return res;\r\n}\r\nlet inOrder = traverse(tree);\r\nconsole.log(inOrder);\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[",
+                                "  1, 2, 3, 4,",
+                                "  5, 6, 7",
+                                "]",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# Traversing a tree (My own way)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const stack = [];\r\nstack.push(tree);\r\nlet root;\r\n\r\nvar result = \"\";\r\nwhile (stack.length > 0) {\r\n  root = stack.pop();\r\n  result += `root: ${root.val} \\n`;\r\n\r\n  if (root.left) {\r\n    stack.push(root.left);\r\n    result += `left: ${root.left.val} `;\r\n  }\r\n\r\n  if (root.right) {\r\n    stack.push(root.right);\r\n    result += `right: ${root.right.val} `;\r\n  }\r\n\r\n  result += \"\\n\";\r\n}\r\nconsole.log(result);\r\n// console.log(JSON.stringify(tree));\r\n\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "root: 3 ",
+                                "left: 2 right: 5 ",
+                                "root: 5 ",
+                                "left: 4 right: 6 ",
+                                "root: 6 ",
+                                "right: 7 ",
+                                "root: 7 ",
+                                "",
+                                "root: 4 ",
+                                "",
+                                "root: 2 ",
+                                "left: 1 ",
+                                "root: 1 ",
+                                "",
+                                "",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stderr",
+                            "value": [
+                                "Debugger ending on ws://127.0.0.1:17150/dc4732a1-616c-4dfa-9020-aa01f641dc7c\r",
+                                "For help, see: https://nodejs.org/en/docs/inspector\r",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
