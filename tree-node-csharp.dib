@@ -1,0 +1,61 @@
+#!csharp
+
+public class TreeNode {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode(int x) { val = x; }
+
+    // deserialize from string
+    public static TreeNode deserialize(String data) {
+        if (data == null || data.Count() == 0) {
+            return null;
+        }
+
+        String[] nodes = data.Split(",");
+        int[] nums = new int[nodes.Count()];
+        for (int i = 0; i < nodes.Count(); i++) {
+            nums[i] = Convert.ToInt32(nodes[i]);
+        }
+
+        return deserialize(nums, 0);
+    }
+
+    private static TreeNode deserialize(int[] nums, int index) {
+        if (index >= nums.Count() || nums[index] == -1) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(nums[index]);
+        root.left = deserialize(nums, 2 * index + 1);
+        root.right = deserialize(nums, 2 * index + 2);
+
+        return root;
+    }
+}
+
+#!csharp
+
+var tree = TreeNode.deserialize("1, 2, 5, 6, 8, 11" );
+//   1
+// /   \
+// 2    5
+// |\    \
+// 6 8    11
+
+var root = tree;
+var queue = new Queue<TreeNode>();
+queue.Enqueue(root);
+
+while (queue.Any()) {
+    root = queue.Dequeue();
+    // Console.WriteLine("root " + root.val);
+    if (root.left != null) {
+        queue.Enqueue(root.left);
+        // Console.WriteLine("left " + root.left.val);
+    }
+    if (root.right != null) {
+        queue.Enqueue(root.right);
+        // Console.WriteLine("right " + root.right.val);
+    }
+}
