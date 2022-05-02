@@ -1,6 +1,6 @@
 // I couldn't make sense of this solution, but it works
 
-public static int activityNotifications(int[] expenditure, int d)
+static int activityNotifications(int[] expenditure, int d)
 {
     int notifications = 0;
     var arr = new int[d];
