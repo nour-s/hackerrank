@@ -1,0 +1,63 @@
+#!csharp
+
+public class TreeNode {
+    public int? val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode(int? val = null){ this.val = val; }
+
+    // Insert a node
+    public void insert(int x) {
+        if (x < val) {
+            if (left == null) {
+                left = new TreeNode(x);
+            } else {
+                left.insert(x);
+            }
+        } else {
+            if (right == null) {
+                right = new TreeNode(x);
+            } else {
+                right.insert(x);
+            }
+        }
+    }
+}
+
+#!csharp
+
+var items = new [] {3, 5, 2, 1, 4, 6, 7};
+TreeNode tree = null;
+foreach(var item in items) {
+    if(tree == null){
+        tree = new TreeNode(item);
+    }
+    else
+    tree.insert(item);
+}
+
+//       3
+//    2      5
+//  1      4   6
+//               7
+tree.Display();
+
+#!csharp
+
+var stack = new Stack<TreeNode>();
+
+TreeNode curr = tree;
+var lst = new List<int>();
+while(curr != null || stack.Any())
+{
+    while(curr != null)
+    {
+        stack.Push(curr);
+        curr = curr.left;
+    }
+    curr = stack.Pop();
+    lst.Add(curr.val.Value);
+    curr = curr.right;
+}
+
+lst.Display();
