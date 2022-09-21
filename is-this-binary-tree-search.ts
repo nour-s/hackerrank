@@ -1,4 +1,6 @@
-"use strict";
+import TreeNode from "./common/treeNode";
+
+("use strict");
 
 process.stdin.resume();
 process.stdin.setEncoding("utf-8");
@@ -44,30 +46,4 @@ function processData(root: TreeNode) {
     return isIt(node.left, min, node.val) && isIt(node.right, node.val, max);
   }
   return isIt(root, -Infinity, Infinity);
-}
-
-class TreeNode {
-  public constructor(val: number = null) {
-    this.val = val;
-  }
-  public val: number;
-  public left: TreeNode;
-  public right: TreeNode;
-
-  insert(newData: any) {
-    let node = this;
-    if (!node.val) {
-      node.val = newData;
-    } else if (node.left && newData < node.val) {
-      node.left.insert(newData);
-    } else if (newData < node.val && !node.left) {
-      const newNode = new TreeNode(newData);
-      node.left = newNode;
-    } else if (node.right && newData > node.val) {
-      node.right.insert(newData);
-    } else if (newData > node.val && !node.right) {
-      const newNode = new TreeNode(newData);
-      node.right = newNode;
-    }
-  }
 }

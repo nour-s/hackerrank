@@ -1,6 +1,7 @@
 // Hacker Rank only accepts TypeScript hence this file
+import TreeNode from "./common/treeNode";
 
-"use strict";
+("use strict");
 
 process.stdin.resume();
 process.stdin.setEncoding("utf-8");
@@ -54,30 +55,4 @@ function main() {
   const [v1, v2] = inputLines[2].split(" ").map((val) => parseInt(val));
   let result = processData(tree, v1, v2);
   console.log(result);
-}
-
-class TreeNode {
-  public constructor(val: number = null) {
-    this.val = val;
-  }
-  public val: number;
-  public left: TreeNode;
-  public right: TreeNode;
-
-  insert(newData: any) {
-    let node = this;
-    if (!node.val) {
-      node.val = newData;
-    } else if (node.left && newData < node.val) {
-      node.left.insert(newData);
-    } else if (newData < node.val && !node.left) {
-      const newNode = new TreeNode(newData);
-      node.left = newNode;
-    } else if (node.right && newData > node.val) {
-      node.right.insert(newData);
-    } else if (newData > node.val && !node.right) {
-      const newNode = new TreeNode(newData);
-      node.right = newNode;
-    }
-  }
 }

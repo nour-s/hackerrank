@@ -8,9 +8,16 @@
             "outputs": []
         },
         {
+            "language": "markdown",
+            "source": [
+                "# An example of a binary tree"
+            ],
+            "outputs": []
+        },
+        {
             "language": "typescript",
             "source": [
-                "class TreeNode {\r\n  public constructor(val: number = null) {\r\n    this.val = val;\r\n  }\r\n  public val: number;\r\n  public left: TreeNode;\r\n  public right: TreeNode;\r\n\r\n  insert(newData: any) {\r\n    let node = this;\r\n    if (!node.val) {\r\n      node.val = newData;\r\n    } else if (node.left && newData < node.val) {\r\n      node.left.insert(newData);\r\n    } else if (newData < node.val && !node.left) {\r\n      const newNode = new TreeNode(newData);\r\n      node.left = newNode;\r\n    } else if (node.right && newData > node.val) {\r\n      node.right.insert(newData);\r\n    } else if (newData > node.val && !node.right) {\r\n      const newNode = new TreeNode(newData);\r\n      node.right = newNode;\r\n    }\r\n  }\r\n}\r\n"
+                "import TreeNode from \"e:/my projects/hackerrank/common/treeNode\";\r\n\r\nlet nodeValues = [12, 7, 3, 10, 14, 13, 19, 2, 4, 9, 11];\r\n//       12\r\n//    7       14\r\n//  3   10  13   19\r\n//                \r\n\r\nlet tree = new TreeNode();\r\nfor (let nodeValue of nodeValues) {\r\n  tree.insert(nodeValue);\r\n}\r\n\r\nconsole.log(JSON.stringify(tree));\r\n"
             ],
             "outputs": [
                 {
@@ -23,31 +30,16 @@
                             ]
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "language": "markdown",
-            "source": [
-                "# An example of a binary tree"
-            ],
-            "outputs": []
-        },
-        {
-            "language": "typescript",
-            "source": [
-                "let nodeValues = [12, 7, 3, 10, 14, 13, 19, 2, 4, 9, 11];\r\n//       12\r\n//    7       14\r\n//  3   10  13   19\r\n//                \r\n\r\nlet tree = new TreeNode();\r\nfor (let nodeValue of nodeValues) {\r\n  tree.insert(nodeValue);\r\n}\r\n\r\nconsole.log(JSON.stringify(tree));\r\n"
-            ],
-            "outputs": [
+                },
                 {
                     "items": [
                         {
-                            "mime": "application/vnd.code.notebook.stdout",
-                            "value": [
-                                "{\"val\":12,\"left\":{\"val\":7,\"left\":{\"val\":3},\"right\":{\"val\":10}},\"right\":{\"val\":14,\"left\":{\"val\":13},\"right\":{\"val\":19}}}",
-                                "",
-                                ""
-                            ]
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "TSError",
+                                "message": "⨯ Unable to compile TypeScript:\ncommon/treeNode.ts(6,10): error TS2564: Property 'left' has no initializer and is not definitely assigned in the constructor.\r\ncommon/treeNode.ts(7,10): error TS2564: Property 'right' has no initializer and is not definitely assigned in the constructor.\r\n",
+                                "stack": "c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\resources\\scripts\\node_modules\\ts-node\\dist\\index.js:317\n            throw error;\n            ^\n\n    at createTSError (c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\resources\\scripts\\node_modules\\ts-node\\src\\index.ts:750:12)\n    at reportTSError (c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\resources\\scripts\\node_modules\\ts-node\\src\\index.ts:754:19)\n    at getOutput (c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\resources\\scripts\\node_modules\\ts-node\\src\\index.ts:941:36)\n    at Object.compile (c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\resources\\scripts\\node_modules\\ts-node\\src\\index.ts:1243:30)\n    at Module.m._compile (c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\resources\\scripts\\node_modules\\ts-node\\src\\index.ts:1370:30)\n    at Module._extensions..js (internal/modules/cjs/loader.js:1092:10)\n    at Object.require.extensions.<computed> [as .ts] (c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\resources\\scripts\\node_modules\\ts-node\\src\\index.ts:1374:12)\n    at Module.load (internal/modules/cjs/loader.js:928:32)\n    at Function.Module._load (internal/modules/cjs/loader.js:769:14)\n    at Function._._load (c:\\Users\\Nour\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\out\\extension\\server\\index.js:2:115372)"
+                            }
                         }
                     ]
                 }
